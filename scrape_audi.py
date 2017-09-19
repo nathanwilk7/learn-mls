@@ -5,12 +5,12 @@ from datetime import datetime
 import os.path
 
 start = -1
-end = 902000
+end = 675400
 url = 'https://www.audi-player-index.com/en/getMatch/{_id}/latest/'
 _dir = 'matches'
 dest_file = '{_dir}/{filename}'
 filename = '{_id}.json'
-printerval = 100
+printerval = 1000
 
 def is_legit(r):
     try:
