@@ -57,7 +57,9 @@ CREATE TABLE snapshots (
        f9Id INTEGER,
        relevance INTEGER,
        half_score_home INTEGER,
-       half_score_away INTEGER
+       half_score_away INTEGER,
+
+       UNIQUE (match_id, timestamp)
 );
 
 CREATE TABLE players_in_snapshots (
