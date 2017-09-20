@@ -4,13 +4,14 @@ import json
 from datetime import datetime
 import os.path
 
-start = -1
-end = 675400
+start = 901000
+end = 1000001
+step_size = 1
 url = 'https://www.audi-player-index.com/en/getMatch/{_id}/latest/'
 _dir = 'matches'
 dest_file = '{_dir}/{filename}'
 filename = '{_id}.json'
-printerval = 1000
+printerval = 100
 
 def is_legit(r):
     try:
@@ -28,7 +29,7 @@ def is_legit(r):
         return False
 
 num_written = 0
-for _id in range(end, start, -1):
+for _id in range(start, end, step_size):
     if _id % printerval == 0:
         print(datetime.now().time())
         print('ID: {_id}, num_written={num_written}'.format(_id=_id, num_written=num_written))
