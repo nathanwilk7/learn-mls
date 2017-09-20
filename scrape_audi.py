@@ -4,7 +4,7 @@ import json
 from datetime import datetime
 import os.path
 
-start = 901000
+start = 90000
 end = 1000001
 step_size = 1
 url = 'https://www.audi-player-index.com/en/getMatch/{_id}/latest/'

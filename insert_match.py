@@ -203,17 +203,20 @@ for match_id in match_ids:
                         snap_pk=True
       )
       for player_id, player in snapshot['players'].items():
-         i_d(c,
-             players_in_snapshots_sql,
-             (snapshot_id,
-              player_id,
-              player['participation'],
-              player['participationMin'],
-              player['index']['total'],
-              player['index']['off'],
-              player['index']['def']
-             )
-         )
+         try:
+            i_d(c,
+                players_in_snapshots_sql,
+                (snapshot_id,
+                 player_id,
+                 player['participation'],
+                 player['participationMin'],
+                 player['index']['total'],
+                 player['index']['off'],
+                 player['index']['def']
+                )
+            )
+         except Exception as e:
+            print(match['matchId'], 'does not have', e)
          player_stats = player['stats']
          player_stats_list = []
          for i in range(len(player_stats)):
