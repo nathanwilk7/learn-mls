@@ -1,2 +1,4 @@
 # emacs backups
 *~
+# database...unfortunately
+*.db

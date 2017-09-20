@@ -18,8 +18,6 @@ INSERT INTO matches (
 competition_id,
 season_id,
 match_id,
-first_half_start,
-first_half_stop,
 date,
 home_id,
 home_team_name,
@@ -28,7 +26,7 @@ away_team_name,
 range_from,
 range_till,
 status
-) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
+) VALUES (?,?,?,?,?,?,?,?,?,?,?)
 '''
 
 players_sql = '''
@@ -114,7 +112,7 @@ for match_filename in match_filenames:
 natee = 0
 for match_id in match_ids:
    if next_print == 0:
-      print('progress:', round(float(natee) / float(len(match_ids)), 2), '%')
+      print('progress:', round((float(natee) * 100) / float(len(match_ids)), 1), '%')
       print('match_id:', match_id)
       next_print = printerval
    natee += 1
@@ -138,8 +136,8 @@ for match_id in match_ids:
           (match['competitionId'],
            match['seasonId'],
            match['matchId'],
-           match['first_half_start'],
-           match['first_half_stop'],
+#           match['first_half_start'],
+#           match['first_half_stop'],
            match['date'],
            match_teams_home['id'],
            match_teams_home['name'],
@@ -152,6 +150,7 @@ for match_id in match_ids:
       )
    except KeyError as e:
       print(match['matchId'], 'does not have field', e)
+      continue
    stat_index_to_stat_name = {}
    stat_indexes = match['statIndexes']
    for stat_name, stat_index in stat_indexes.items():
@@ -183,6 +182,7 @@ for match_id in match_ids:
          )
       except KeyError as e:
          print(match['matchId'], 'does not have field', e)
+         continue
    for snapshot in match['snapshots']:
       snapshot_id = i_d(c,
                         snapshots_sql,
@@ -215,12 +215,18 @@ for match_id in match_ids:
                  player['index']['def']
                 )
             )
-         except Exception as e:
+         except KeyError as e:
             print(match['matchId'], 'does not have', e)
+            continue
          player_stats = player['stats']
          player_stats_list = []
          for i in range(len(player_stats)):
-            stat_value = player_stats[i]
+            try:
+               stat_value = player_stats[i]
+            except Exception as e:
+               print('stats value error...')
+               pdb.set_trace()
+               continue
             player_stats_list.append(
                (
                   snapshot_id,
