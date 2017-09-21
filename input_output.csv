@@ -1,0 +1,8 @@
+home_team_name,season_stats_for_home_team,stats_from_third_most_recent_game,second__"",first_"",away_team_name,season_stats_for_away_team,[who_won|(home_win|tie|away_win)|prob_home_win|(home_goals,away_goals)|seperate_classifiers_for_win_tie_loss]
+# does not consider players in game
+# requires at least three previous games as input when testing (could make this a hyperparameter and grid search on it)
+# could use probabilities to assign win, tie, loss
+# should include how long ago last three games were (teams get tired)
+# i believe home/away advantage would be captured
+# could generate this data for all games after week X in each season which would give us a bunch of training data
+# does it consider things like some team having a crazy home crowd?
