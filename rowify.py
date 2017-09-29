@@ -20,14 +20,12 @@ match_fieldnames = [
     'score_home',
     'score_away',
     'half_score_home',
-    'half_score_away',
-    'num_players'
+    'half_score_away'
 ]
 
 match_stats_sql = '''
 select *, 
- sum(stat_value) as total_stat_value, 
- count(distinct players_in_snapshots.player_id) as num_players from matches
+ sum(stat_value) as total_stat_value from matches
  inner join snapshots on matches.match_id=snapshots.match_id
  inner join players_in_snapshots on snapshots.snapshot_id=players_in_snapshots.snapshot_id
  inner join stats_for_players_in_snapshots on players_in_snapshots.snapshot_id=stats_for_players_in_snapshots.snapshot_id and
